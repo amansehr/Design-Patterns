@@ -44,4 +44,18 @@ public class BuilderDesignPattern {
     }
 }
 
+//Main File
+
+package com.company;
+
+public class Main {
+
+    public static void main(String[] args) {
+        BuilderDesignPattern obj = new BuilderDesignPattern.Builder("Aman","Password").setAge("25").setYear("2022").build();
+        obj.get();
+
+    }
+}
+
+
 
