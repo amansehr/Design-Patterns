@@ -1,3 +1,4 @@
+```
 package com.company;
 
 public class BuilderDesignPattern {
@@ -27,6 +28,8 @@ public class BuilderDesignPattern {
         Builder(String Name,String Password){
             this.Name = Name;
             this.Password = Password;
+            this.Age = "";
+            this.Year = "";
         }
         Builder setAge(String Age){
             this.Age = Age;
@@ -56,6 +59,5 @@ public class Main {
 
     }
 }
-
 
 
