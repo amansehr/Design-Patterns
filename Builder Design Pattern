@@ -1,0 +1,47 @@
+package com.company;
+
+public class BuilderDesignPattern {
+    // immutable prop
+    private final String Name;
+    private final String Password;
+    private final String Age;
+    private final String Year;
+
+    BuilderDesignPattern(Builder obj){
+        this.Name = obj.Name;
+        this.Password = obj.Password;
+        this.Age = obj.Age;
+        this.Year = obj.Year;
+    }
+
+    void get(){
+        System.out.println(this.Name);
+    }
+    //builder
+    public static class Builder{
+        private final String Name;
+        private final String Password;
+        private  String Age;
+        private  String Year;
+
+        Builder(String Name,String Password){
+            this.Name = Name;
+            this.Password = Password;
+        }
+        Builder setAge(String Age){
+            this.Age = Age;
+            return this;
+        }
+        Builder setYear(String Year) {
+            this.Year = Year;
+            return this;
+        }
+        BuilderDesignPattern build(){
+            BuilderDesignPattern obj = new BuilderDesignPattern(this);
+            return obj;
+        }
+
+    }
+}
+
+
