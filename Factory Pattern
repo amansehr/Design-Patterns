@@ -1,1 +1,79 @@
 
+package com.company;
+
+public interface os {
+    void solve();
+}
+
+
+///////////////
+
+package com.company;
+
+public class Android implements os{
+    @Override
+    public void solve(){
+        System.out.println("Android Os");
+    }
+}
+
+///////////////
+
+
+package com.company;
+
+public class Ios implements  os{
+    @Override
+    public void solve(){
+        System.out.println("Ios Os");
+    }
+}
+
+
+//////////////
+
+
+
+package com.company;
+
+public class window implements os{
+    @Override
+    public void solve(){
+        System.out.println("window os");
+    }
+}
+
+
+//////////////
+
+
+package com.company;
+
+public class factoryDesignPattern {
+
+    public os getinstance(String name){
+        if(name == "open")
+            return new Android();
+        else if(name == "closed")
+            return new Ios();
+        return new window();
+    }
+}
+
+
+//////////////
+
+
+package com.company;
+
+public class Main {
+
+    public static void main(String[] args) {
+        factoryDesignPattern o = new factoryDesignPattern();
+        os obj = o.getinstance("");
+        obj.solve();
+    }
+}
+
+
+
