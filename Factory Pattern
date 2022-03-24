@@ -59,6 +59,20 @@ public class factoryDesignPattern {
         return new window();
     }
 }
+//another way
+
+package com.company;
+
+public class factoryDesignPattern {
+
+    public static os getinstance(String name){
+        if(name == "open")
+            return new Android();
+        else if(name == "closed")
+            return new Ios();
+        return new window();
+    }
+}
 
 
 //////////////
@@ -71,6 +85,16 @@ public class Main {
     public static void main(String[] args) {
         factoryDesignPattern o = new factoryDesignPattern();
         os obj = o.getinstance("");
+        obj.solve();
+    }
+}
+//another way
+package com.company;
+
+public class Main {
+
+    public static void main(String[] args) {
+        os obj = factoryDesignPattern.getinstance("");
         obj.solve();
     }
 }
