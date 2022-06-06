@@ -1,1 +1,119 @@
-``` Code will be added ```
+class Hotel{
+    string name;
+    string uuid;
+    Location Address;
+    List<Room> Rooms;
+}
+
+class Location{
+    int pinCode;
+    string district;
+    string state;
+    string country;
+}
+
+class Room{
+    int roomNo;
+    RoomStyle roomStyle;
+    RoomStatus roomStatus;
+    List<HouseKeepingLog> houseKeepingLogs;
+    List<RoomKey> roomKeys;
+}
+
+enum RoomStyle { STANDARD,DELUXE,VIP };
+enum RoomStatus { BOOKED,EMPTY};
+
+class Roomkey{
+    string uuid;
+    string barCode;
+    Date issuedAt;
+    public void assignRoom(Room room);
+}
+
+class HouseKeepingLog{
+    string description;
+    Date date;
+    HouseKeeper houseKeeper;
+    public void addLog(Room room);
+}
+
+abstract class Person{
+    string name;
+    string mobileNo;
+}
+class HouseKeeper extends Person{
+
+   public List<Room> getRoomServiced(Date date);
+}
+class Guest extends Person{
+    Search searchObj;
+    Booking bookingObj;
+
+   public List<RoomBooking> getAllRoomsBooking();
+}
+
+class Receptionist extends Person{
+    Search searchObj;
+    Booking bookingObj;
+
+    public void checkIn(RoomBooking roomDetails);
+    public void checkOut(Guest guest,int bookingId);
+}
+
+class admin extends{
+    public void addRoom(Room roomDetail);
+    public void deleteRoom(int roomNo);
+    public void editRoom(Room roomDetail);
+    
+}
+class RoomBooking{
+    int bookingId;
+    Date startingDate;
+    int durationInDays;
+    List<Guest> guest;
+    List<Room> roomsBooked;
+    BaseRoomPrice cost;
+}
+
+class Search{
+    public List<Room> getRooms(Date date,RoomStyle roomStyle,int durationInDays);
+}
+
+class Booking{
+
+    public RoomBooking createBooking(Guest guestInfo);
+    public RoomBooking cancelBooking(int bookingId);
+}
+
+interface BasePrice{
+
+    double cost;
+    double getCost();
+    void setCost(double cost);
+}
+
+class BaseRoomServiceCharge extends BasePrice{
+    double cost;
+    double getCost(){
+        return this.cost;
+    }
+    void setCost(double cost){
+        this.cost = cost;
+    }
+}
+
+
+class RoomServiceCharge extends BasePrice{
+    double cost;
+    BasePrice BaseRoomServiceCharge;
+    double getCost(){
+        return this.cost;
+    }
+    void setCost(double cost){
+        this.cost = BaseRoomServiceCharge.getCost() + cost;
+    }
+}
+
+
+
+
