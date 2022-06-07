@@ -1,1 +1,96 @@
+class Library{
+    string name;
+    Address address;
+    List<BookItem> books;
+}
 
+class Address{
+    int pinCode;
+    string country;
+    string district;
+    string city;
+}
+
+class Book{
+    string uuid;
+    List<Author> Authors;
+    string name;
+    Date publishedDate;
+    BookType bookType;
+    BookCategory bookCategory;
+}
+
+enum BookType { PAPERBACK, HARDCORE };
+enum BookCategory { SCIFI, ACADEMIC };
+
+class BookItem extends Book{
+    Rack position;
+    Book issueDate;
+}
+
+class Rack{
+    int no;
+    string LocationId;
+}
+
+class Person{
+    string name;
+}
+
+class Author extends Person{
+    List<BookItem> getBooksPublished();
+}
+
+class Member extends Person{
+    Search searchService;
+    BookService bookService;
+    List<BookItem> getBookIssued();
+}
+
+class Librarian extends Person{
+    Search searchService;
+    BookService bookService;
+
+    void addBook(BookItem book);
+    void removeBook(BookItem book);
+}
+
+class Search{
+    List<BookItem> getByAuthor(Author author);
+    List<BookItem> getByCategory(BookCategory bookCategory);
+    List<BookItem> getByName(string bookName);
+}
+
+class BookService{
+    FineService fineService;
+    BookIssueDetail issueBook(BookItem book,Person member);
+    BookIssueDetail renewBook(BookItem book,Person member);
+    BookReservationDetail reserveBook(BookItem book,Person member);
+    void returnBook(BookItem book,Person member);
+}
+
+class BookLending{
+    BookItem book;
+    Date startDate;
+    Person person;
+}
+
+class BookReservationDetail extends BookLending{
+    ReservationStatus reservationStatus;
+}
+
+enum ReservationStatus { RESERVED, UNRESERVED };
+
+class BookIssueDetail extends BookLending{
+    Date dueDate;
+}
+
+class fineService{
+    Fine calculateFine(BookItem book,Person person,int days);
+}
+
+class Fine{
+    double fineCost;
+    Date LastDateToPay;
+    Person person;
+}
