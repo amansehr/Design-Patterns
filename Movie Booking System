@@ -1,0 +1,98 @@
+class MovieBookingSystem{
+    List<CinemaHall> cinemaHall;
+    List<CinemaHall> getCinemaHall(string city);
+}
+
+class CinemaHall{
+    string name;
+    string cinemaId;
+    List<Audi> audi;
+    Address address;
+}
+
+class Address{
+    int pinCode;
+    string country;
+    string district;
+    string city;
+}
+
+class Audi{
+    int id;
+    List<Show> shows;
+    int totalSeats;
+}
+
+class Show{
+    Movie movie;
+    Date startTime;
+    Date endTime;
+    List<Seat> seats;
+}
+
+class Seat{
+    int seatNo;
+    SeatStatus seatStatus;
+    SeatType seatType;
+}
+
+enum SeatType { DELUXE , VIP };
+
+enum SeatStatus { BOOKED, AVAILABLE };
+
+class Movie{
+    string name;
+    string id;
+    MovieGenre genre;
+    string language;
+    int durationInMins;
+    Date releaseDate;
+}
+
+enum MovieGenre { COMEDY,ROMANCE, ACTION };
+
+abstract class User{
+    string name;
+    string mobileNo;
+    AccounStatus accountStatus;
+    Search searchObj;
+}
+
+enum AccounStatus { BLOCKED, ACTIVE, DEACTIVATED };
+
+class Member extends User{
+    Booking BookShow(Booking booking);
+    List<Booking> getBookedShow();
+}
+
+class Admin extends Member{
+    void addShow(Show show);
+    void removeShow(Show show);
+}
+
+class Search{
+    List<Movie> getMovieByGenre(MovieGenre genre);
+    List<Movie> getMovieByLanguage(string language);
+    List<Movie> getMovieByTitle(string title);
+    List<Movie> getMovieByReleaseDate(Date releaseDate);
+}
+
+class Booking{
+    User member;
+    Show show;
+    List<Seat> seats;
+    double totalAmount;
+    Date BookingDate;
+    Audi audi;
+    BookingStatus bookingStatus;
+    Payment paymentService;
+}
+
+class Payment{
+    PaymentDetail makePayment(double totalAmount);
+}
+
+enum BookingStatus { PROCESSING , CANCELLED, BOOKED };
+
+
+
