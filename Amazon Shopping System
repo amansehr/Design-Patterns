@@ -1,0 +1,123 @@
+class Customer{
+    Search searchService;
+    ShoppingCart shoppingCart;
+}
+
+class Guest extends Customer{
+    Account createAccount();
+}
+
+class User extends Customer{
+    Account account;
+}
+
+class Seller extends User{
+    void addProduct(Item item);
+}
+
+class Buyer extends User{
+    Order orderService;
+}
+
+class Account{
+    string name;
+    string mobileNo;
+    AccountStatus accountStatus;
+    string email;
+    List<Address> shippingAddress;
+}
+
+class ShoppingCart{
+    List<Item> items;
+    double cartCost;
+    void addItem(Item item);
+    void removeItem(Item item);
+    void updateItem(Item item);
+    void checkoutItem();
+    List<Item> getListItems();
+    double getCartValue();    
+}
+
+class Item{
+    Product product;
+    int quantity;
+}
+
+class Product{
+    string name;
+    string productDescription;
+    string uuid;
+    ProductCategory productCategory;
+    List<ProductReview> productReviews;
+    Seller seller;
+    Date addedDate;
+    double cost;
+}
+
+class ProductReview{
+    String details;
+    Buyer reviewer;
+    int rating;
+}
+
+class Order{
+    int orderId;
+    List<Item> items;
+    double totalCost;
+    List<OrderLog> orderLogs;
+    Notification notificationService;
+    Buyer buyer;
+    Date orderDate;
+
+    OrderStatus placeOrder();
+    OrderStatus trackOrder();
+    void addOrderLogs(OrderLog orderLog);
+    PaymentStatus makePayment(PaymentType paymentType);
+}
+
+class OrderStatus{
+    string orderDetail;
+    OrderStatus orderStatus;
+    Date createdDate;
+}
+
+class notificationService{
+
+
+    boolean sendNotification(NotificationDomain notificationDomain){
+        NotificationObj notificationObj;
+        MessageAttribute messageAttribute;
+        switch(notificationDomain.getType()){
+            case notificationDomain.type == 'EMAIL': 
+                notificationObj = new EmailNotification();
+                messageAttribute = new MessageAttribute("abc@gmail.com",notificationDomain.getUser().getAccount().getEmail(),"Order Detail..."); 
+                break;
+            default : 
+                notificationObj = new SmsNotification();
+                messageAttribute = new MessageAttribute("abc@gmail.com",notificationDomain.getUser().getAccount().getEmail(),"Order Detail..."); 
+                break;
+        }
+
+        return notificationObj.sendNotification(messageAttribute);
+    }
+}
+
+class NotificationDomain{
+    string notificationId;
+    NotificationType notificationType;
+    User user;
+}
+
+class MessageAttribute{
+    string from;
+    string to;
+    string message;
+}
+
+interface Notification{
+    boolean sendNotification(MessageAttribute messageAttribute);
+}
+
+class EmailNotification implements Notification{
+    boolean sendNotification(MessageAttribute messageAttribute);
+}
